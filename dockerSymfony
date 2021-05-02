@@ -1,14 +1,23 @@
 #!/bin/sh
+
+# if no arguments are past in force user to give argument for project name
 if [ -z "$1" ]
 then
 	read -p 'Projectname: ' PROJECTNAME
 else
+	# set argument = to PROJECTNAME
 	PROJECTNAME="$1"
 fi
 
+# make dir PROJECTNAME and al needed dirs
 mkdir $PROJECTNAME
 cd $PROJECTNAME
 mkdir mysql app
+
+# configure this line to make it work 
+# u need to clone the symfonyDocker files  to the curent dir
 cp -r ~/backup/symfonyDocker/php ~/backup/symfonyDocker/nginx ~/backup/symfonyDocker/docker-compose.yml .
+
+# set al test strings to the PROJECTNAME
 sed -i "s/test/$PROJECTNAME/g" docker-compose.yml 
 sed -i "s/test/$PROJECTNAME/g" nginx/default.conf 
